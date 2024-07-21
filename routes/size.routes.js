@@ -4,7 +4,19 @@ const Size = require('../model/size.model.js');
 
 // Create a new size entry
 router.post('/create', async (req, res) => {
-    const size = new Size(req.body);
+    const { innerBoxQty, boxesPacked, loosePcs, ...otherFields } = req.body;
+    const totalPcsReceived = (innerBoxQty * boxesPacked) + loosePcs;
+
+    console.log(totalPcsReceived);
+
+    const size = new Size({
+        ...otherFields,
+        innerBoxQty,
+        boxesPacked,
+        loosePcs,
+        totalPcsReceived
+    });
+
     try {
         await size.save();
         res.status(201).send(size);
