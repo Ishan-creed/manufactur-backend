@@ -5,7 +5,7 @@ const Size = require('../model/size.model.js');
 // Create a new size entry
 router.post('/create', async (req, res) => {
     const { innerBoxQty, boxesPacked, loosePcs, ...otherFields } = req.body;
-    const totalPcsReceived = (innerBoxQty * boxesPacked) + loosePcs;
+    const totalPcsReceived = (Number(innerBoxQty) * Number(boxesPacked)) + Number(loosePcs);
 
     console.log(totalPcsReceived);
 
